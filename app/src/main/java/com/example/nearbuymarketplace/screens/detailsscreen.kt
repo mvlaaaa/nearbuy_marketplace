@@ -1,9 +1,12 @@
 package com.example.nearbuymarketplace.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -15,6 +18,7 @@ fun DetailsScreen(
     onNavigateBack: () -> Unit
 ) {
     val item = viewModel.selectedItem
+    val context = LocalContext.current
 
     Scaffold { innerPadding ->
         Column(
@@ -49,7 +53,12 @@ fun DetailsScreen(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Button(
-                    onClick = { },
+                    onClick = {
+                        val intent = Intent(Intent.ACTION_DIAL).apply {
+                            data = Uri.parse("tel:0712345678")
+                        }
+                        context.startActivity(intent)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(50.dp)
